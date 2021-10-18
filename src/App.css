@@ -34,6 +34,28 @@
   justify-content: space-evenly;
 }
 
+.content div {
+  width: 350px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.content div button {
+  border-radius: 5px;
+  border: none;
+  background-color: #b141d6;
+  color: #fff;
+  height: 35px;
+  cursor: pointer;
+
+  transition: all 0.2s;
+}
+
+.content div button:hover {
+  opacity: 0.7;
+}
+
 .formActivity {
   width: 80%;
   height: 300px;

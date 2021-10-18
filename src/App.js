@@ -8,6 +8,7 @@ import "./App.css";
 function App() {
   const [initial, setInitial] = useState("00:00");
   const [finish, setFinish] = useState("00:00");
+  const [weight, setWeight] = useState(0);
   const [name, setName] = useState("");
   const [labels, setLabels] = useState([]);
   const [backgroundColor, setBackgroundColor] = useState([]);
@@ -85,7 +86,6 @@ function App() {
       }
     });
     setBackgroundColor([...tempList]);
-    // console.log(list);
   }
 
   function createActivity(e) {
@@ -104,6 +104,7 @@ function App() {
               Number(format(new Date(`1995-12-17T${finish}:00`), "m")) / 60
           ).toFixed(2)
         ),
+        Number(weight),
       ]);
       setDtState([...dtState, ...dt]);
       setLabels([...labels, name]);
@@ -122,6 +123,49 @@ function App() {
       setName("");
       alert("O horário de inicio deve ser menor que o de final da atividade");
     }
+  }
+
+  function findLastNonConflictingJob(activities, n) {
+    for (let i = n - 1; i >= 0; i--) {
+      if (activities[i][1] <= activities[n][0]) {
+        return i;
+      }
+    }
+
+    return -1;
+  }
+
+  function findMaxProfit2(activities, n) {
+    if (n < 0) {
+      return 0;
+    }
+
+    if (n === 0) {
+      return activities[0][2];
+    }
+
+    let index = findLastNonConflictingJob(activities, n);
+
+    let incl = activities[n][2] + findMaxProfit2(activities, index);
+
+    let excl = findMaxProfit2(activities, n - 1);
+
+    return Math.max(incl, excl);
+  }
+
+  function findMaxProfit(activities) {
+    activities.sort((next, item) => {
+      if (next[1] < item[1]) {
+        return -1;
+      }
+      if (next[1] > item[1]) {
+        return 1;
+      }
+      return 0;
+    });
+
+    console.log(dtState);
+    return findMaxProfit2(activities, activities.length - 1);
   }
 
   return (
@@ -150,6 +194,16 @@ function App() {
             ></input>
           </div>
           <div>
+            <label for="weight">Importância da atividade</label>
+            <input
+              name="weight"
+              value={weight}
+              type="text"
+              onChange={(e) => setWeight(e.target.value)}
+              required
+            ></input>
+          </div>
+          <div>
             <label for="name">Nome da atividade</label>
             <input
               name="name"
@@ -164,7 +218,16 @@ function App() {
       </div>
       <div className="content">
         <Bar data={data} options={options} />
-        <button onClick={intervalScheduling}>Otimizar</button>
+        <div>
+          <button onClick={intervalScheduling}>Otimizar Greed</button>
+          <button
+            onClick={() => {
+              alert(findMaxProfit(dtState));
+            }}
+          >
+            Peso máximo
+          </button>
+        </div>
       </div>
     </div>
   );
