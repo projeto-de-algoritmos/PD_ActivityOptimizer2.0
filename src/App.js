@@ -127,7 +127,7 @@ function App() {
   return (
     <div className="container">
       <div className="div-lateral">
-        <span className="titulo">Activity Optmizer</span>
+        <span className="titulo">Activity Optmizer 2.0</span>
         <form className="formActivity" onSubmit={createActivity}>
           <div>
             <label for="initial">Horário de Início</label>
