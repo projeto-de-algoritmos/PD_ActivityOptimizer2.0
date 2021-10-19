@@ -1,7 +1,7 @@
 # Acitivity Optimizer 2.0
 
 **Número da Lista**: X<br>
-**Conteúdo da Disciplina**: XXXXXXXXXX<br>
+**Conteúdo da Disciplina**: Programação Dinamica<br>
 
 ## Alunos
 |Matrícula | Aluno |
