@@ -74,13 +74,11 @@ function App() {
       if (list.length === 0) {
         list.push(item);
         index = dtState.indexOf(item);
-        console.log(index);
         tempList[index] = greenColor;
       } else {
         if (list[list.length - 1][1] <= item[0]) {
           list.push(item);
           index = dtState.indexOf(item);
-          console.log(index);
           tempList[index] = greenColor;
         }
       }
@@ -164,7 +162,6 @@ function App() {
       return 0;
     });
 
-    console.log(dtState);
     return findMaxProfit2(activities, activities.length - 1);
   }
 
@@ -222,7 +219,8 @@ function App() {
           <button onClick={intervalScheduling}>Otimizar Greed</button>
           <button
             onClick={() => {
-              alert(findMaxProfit(dtState));
+              const maxProfit = findMaxProfit(dtState);
+              alert(`O maior peso possível é = ${maxProfit}`);
             }}
           >
             Peso máximo
